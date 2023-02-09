@@ -3,7 +3,6 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql_auth import mutations
 import graphql_jwt
-import graphql_social_auth
 
 
 class AuthMutation(graphene.ObjectType):
@@ -54,8 +53,7 @@ class MeQuery(graphene.ObjectType):
     def resolve_user(self, info):
         user = info.context.user
         if user.is_anonymous:
-            raise Exception("User not authenticated")
-
+            raise PermissionError("User is not authenticated")
         return user
 
 
@@ -82,5 +80,5 @@ class CreateUser(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     login = ObtainJWToken.Field()
-    social_auth = graphql_social_auth.SocialAuthJWT.Field()
-    # create_user = CreateUser.Field()
+    create_user = CreateUser.Field()
+    # social_auth = graphql_social_auth.SocialAuthJWT.Field()
