@@ -1,6 +1,5 @@
 """BASE SETTINGS"""
 
-import os
 from pathlib import Path
 from decouple import config
 
@@ -8,9 +7,6 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config("DEBUG", default=True, cast=bool)
 
 ALLOWED_HOSTS = ["localhost", "localhost:8000", "127.0.0.1", "127.0.0.1:8000"]
 
@@ -23,7 +19,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "server.users"
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -119,8 +115,6 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
