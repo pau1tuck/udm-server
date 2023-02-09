@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "graphql_auth",
     "django_filters",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
+    "core",
     "users",
 ]
 
@@ -171,9 +172,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-gb"
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Bangkok"
 
 USE_I18N = True
 
@@ -191,3 +192,14 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Celery Config
+# CELERY_BROKER_URL = 'amqp://rabbitmq:5672/'
+# CELERY_RESULT_BACKEND = 'amqp'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_AMQP_TASK_RESULT_EXPIRES = 1000
+# CELERY_ACKS_LATE=False
+# CELERY_TASK_TRACK_STARTED=True
+# CELERY_SEND_TASK_EVENTS=True
