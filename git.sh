@@ -1,6 +1,6 @@
 #!/bin/bash
 
-datetime=$(date "+%Y-%m-%d_%H:%M_ICT+7")
+datetime=$(date "+%Y-%m-%d_%H:%M_UTC+7")
 
 echo $datetime
 
