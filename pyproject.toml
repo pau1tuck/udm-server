@@ -1,3 +1,13 @@
+[tool.poetry]
+name = "UDM Server"
+version = "3.0.0"
+description = "Underground Dance Music (UDM) server/backend project using Python Django with GraphQL"
+authors = ["Paul Tuck <paul.tuck@oxon.org>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
 [tool.black]
 line-length = 119
 [tool.flake8]
