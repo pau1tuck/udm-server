@@ -1,8 +1,8 @@
 {
     "python.formatting.provider": "black",
     "black-formatter.path": [
-        "./env/bin/black"
+        "./server/env/bin/black"
     ],
     "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Enabled": true
 }
