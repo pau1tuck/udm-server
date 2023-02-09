@@ -19,6 +19,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
+    "graphene_django",
+    "graphql_auth",
+    "django_filters",
+    "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "users",
 ]
 
@@ -77,6 +82,72 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 
+# GraphQL Settings
+GRAPHENE = {
+    "SCHEMA": "core.schema.schema",
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    # 'graphql_jwt.backends.JSONWebTokenBackend',
+    "graphql_auth.backends.GraphQLAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+GRAPHQL_AUTH = {
+    "LOGIN_ALLOWED_FIELDS": ["email", "password"],
+    "REGISTER_MUTATION_FIELDS_OPTIONAL": [
+        "first_name",
+        "last_name",
+    ],
+}
+ALLOW_LOGIN_NOT_VERIFIED = True
+
+LOGIN_ALLOWED_FIELDS: [
+    "email",
+    "password",
+]
+
+UPDATE_MUTATION_FIELDS = (
+    {
+        "first_name": "String",
+        "last_name": "String",
+    },
+)
+
+USER_NODE_FILTER_FIELDS = {
+    "first_name": ["exact"],
+    "last_name": ["exact"],
+    "email": [
+        "exact",
+    ],
+    "is_active": ["exact"],
+    "status__archived": ["exact"],
+    "status__verified": ["exact"],
+    "status__secondary_email": ["exact"],
+}
+
+GRAPHQL_JWT = {
+    #    'JWT_VERIFY_EXPIRATION': True,
+    #    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    #    'JWT_EXPIRATION_DELTA': timedelta(minutes=6000),
+    #    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.ResendActivationEmail",
+        "graphql_auth.mutations.SendPasswordResetEmail",
+        "graphql_auth.mutations.PasswordReset",
+        # 'graphql_auth.mutations.ObtainJSONWebToken',
+        "graphql_auth.mutations.VerifyToken",
+        "graphql_auth.mutations.RefreshToken",
+        "graphql_auth.mutations.RevokeToken",
+        "graphql_auth.mutations.VerifySecondaryEmail",
+        "server.users.schema.Mutation",
+    ],
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
