@@ -6,4 +6,4 @@ echo $datetime
 
 git add .
 git commit -m \"$datetime\"
-git push -u origin main
+git push origin main
