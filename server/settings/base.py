@@ -24,8 +24,8 @@ INSTALLED_APPS = [
     "graphql_auth",
     "django_filters",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
-    "core",
-    "users",
+    "server",
+    "server.users",
 ]
 
 MIDDLEWARE = [
@@ -38,7 +38,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "core.urls"
+ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
@@ -56,7 +56,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "server.wsgi.application"
 
 
 # Database
@@ -85,7 +85,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 # GraphQL Settings
 GRAPHENE = {
-    "SCHEMA": "core.schema.schema",
+    "SCHEMA": "server.schema.schema",
     "MIDDLEWARE": [
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
     ],
