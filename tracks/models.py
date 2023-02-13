@@ -10,6 +10,6 @@ class Track(models.Model):
     year = models.IntegerField()
     month = models.IntegerField()
     buyUrl = models.URLField(blank=True)
-    location = models.URLField()
+    code = models.CharField(max_length=128)  # YouTube ID for audio and thumbnail
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
