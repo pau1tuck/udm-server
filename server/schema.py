@@ -1,17 +1,18 @@
-from graphene import ObjectType, Schema
+import graphene
+from graphene_django import DjangoObjectType
 from graphql_auth.schema import UserQuery, MeQuery
 import users.schema
+import tracks.schema
 
-# from graphene_django import DjangoObjectType
 # import graphql_jwt
 
 
-class Query(UserQuery, MeQuery, ObjectType):
+class Query(UserQuery, MeQuery, tracks.schema.TrackQuery, DjangoObjectType, graphene.ObjectType):
     pass
 
 
-class Mutation(users.schema.AuthMutation, users.schema.Mutation, ObjectType):
+class Mutation(users.schema.AuthMutation, users.schema.Mutation, DjangoObjectType, graphene.ObjectType):
     pass
 
 
-schema = Schema(query=Query, mutation=Mutation)
+schema = graphene.Schema(query=Query, mutation=Mutation)
