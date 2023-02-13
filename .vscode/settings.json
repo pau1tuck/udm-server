@@ -1,8 +1,7 @@
 {
-    "python.formatting.provider": "black",
-    "black-formatter.path": [
-        "./env/bin/black"
-    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+    },
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
