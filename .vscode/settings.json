@@ -6,5 +6,16 @@
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
         "--max-line-length=119", // Django recommendation
+    ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "UDM",
+            "database": "udm",
+            "username": "admin"
+        }
     ]
 }
