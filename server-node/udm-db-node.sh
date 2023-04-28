@@ -1,0 +1,1 @@
+pg_dump -U pau1tuck -Fc udm -w > udm-db-node.backup

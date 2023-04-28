@@ -1,0 +1,49 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "baseUrl": "./",
+        "paths": {
+            "*": [
+                "src/*"
+            ]
+        },
+        "lib": [
+            "es2020"
+        ],
+        "target": "es2020",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "types": [
+            "node"
+        ],
+        "strict": true,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": false,
+        "checkJs": false,
+        "downlevelIteration": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "sourceMap": false,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
