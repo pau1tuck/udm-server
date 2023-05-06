@@ -25,7 +25,8 @@ EXPOSE 8000
 # Define the command to run the application
 CMD mongod --fork --logpath /var/log/mongodb.log && /usr/local/bin/server-rust
 
-# Build the Docker image: `docker build -t rust-mongodb .`
+
+# Build the Docker image: `docker build -t server-rust .`
 # Create the Docker volume to retain the MongoDB database: `docker volume create mongodb-data`
 # Run the Docker container: `docker run -d --name server-rust -p 8000:8000 -v mongodb-data:/data/db server-rust`
 
