@@ -1,3 +1,5 @@
+/* https://www.section.io/engineering-education/rust-graphql-server-with-mongodb-juniper-and-actix-web/ */
+
 use juniper::{graphql_value, GraphQLObject};
 #[derive(GraphQLObject)]
 #[graphql(description = "Track information")]
