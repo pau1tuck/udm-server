@@ -1,0 +1,1 @@
+declare module '@pau1tuck/udm-server';
