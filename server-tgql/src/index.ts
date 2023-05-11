@@ -7,6 +7,7 @@ import http from "http";
 import cors from "cors";
 import { json } from "body-parser";
 import { v4 } from "uuid";
+import typeDefs from "@/graphql/typeDefs";
 
 interface MyContext {
     token?: string;
@@ -64,6 +65,7 @@ const server = async () => {
         }),
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
+
     // Ensure we wait for our server to start
     await apolloServer.start();
 
@@ -84,3 +86,5 @@ const server = async () => {
     await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
     console.log(`🚀 Server running on http://localhost:${PORT}/`);
 };
+
+server();
