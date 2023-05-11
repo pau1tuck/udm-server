@@ -1,7 +1,7 @@
 {
-    "name": "server-tgql",
+    "name": "udm-server-apollo",
     "version": "2.1.0",
-    "description": "UDM Server (TypeGraphQL)",
+    "description": "UDM Server (Apollo Express)",
     "main": "index.js",
     "scripts": {
         "dev": "parallelshell 'tsc -w' 'nodemon dist/index.js'",
