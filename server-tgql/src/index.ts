@@ -14,7 +14,18 @@ interface MyContext {
 
 const PRODUCTION = process.env.NODE_ENV === "production";
 
-const { DEBUG, HOST, PORT, CORS_ORIGIN, SESSION_COOKIE, DB_HOST, DB_PORT, REDIS_HOST, REDIS_PORT } = process.env;
+const {
+    DEBUG,
+    HOST,
+    PORT,
+    CORS_ORIGIN,
+    SESSION_COOKIE,
+    SESSION_SECRET,
+    DB_HOST,
+    DB_PORT,
+    REDIS_HOST,
+    REDIS_PORT,
+} = process.env;
 
 const server = async () => {
     const app = express();
@@ -36,7 +47,7 @@ const server = async () => {
                 secure: "auto",
                 domain: PRODUCTION ? ".udm.music" : undefined,
             },
-            secret: process.env.SESSION_SECRET || "secret",
+            secret: SESSION_SECRET || "secret",
             resave: false,
             saveUninitialized: false,
         })
@@ -47,7 +58,10 @@ const server = async () => {
     const apolloServer = new ApolloServer<MyContext>({
         typeDefs,
         resolvers,
-        context: {},
+        context: ({ req, res }: { req: Request; res: Response }) => ({
+            req,
+            res,
+        }),
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
     // Ensure we wait for our server to start
@@ -67,6 +81,6 @@ const server = async () => {
     );
 
     // Modified server startup
-    await new Promise<void>((resolve) => httpServer.listen({ port: 5000 }, resolve));
-    console.log(`🚀 Server ready at http://localhost:5000/`);
+    await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
+    console.log(`🚀 Server running on http://localhost:${PORT}/`);
 };
