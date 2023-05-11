@@ -6,12 +6,15 @@ import session from "express-session";
 import http from "http";
 import cors from "cors";
 import { json } from "body-parser";
+import { v4 } from "uuid";
 
 interface MyContext {
     token?: string;
 }
 
 const PRODUCTION = process.env.NODE_ENV === "production";
+
+const { DEBUG, HOST, PORT, CORS_ORIGIN, SESSION_COOKIE, DB_HOST, DB_PORT, REDIS_HOST, REDIS_PORT } = process.env;
 
 const server = async () => {
     const app = express();
@@ -24,9 +27,18 @@ const server = async () => {
 
     app.use(
         session({
-            secret: "your secret here",
+            name: SESSION_COOKIE,
+            genid: () => v4(),
+            cookie: {
+                maxAge: 1000 * 60 * 60 * 24 * 365,
+                httpOnly: true,
+                sameSite: "lax",
+                secure: "auto",
+                domain: PRODUCTION ? ".udm.music" : undefined,
+            },
+            secret: process.env.SESSION_SECRET || "secret",
             resave: false,
-            saveUninitialized: true,
+            saveUninitialized: false,
         })
     );
 
