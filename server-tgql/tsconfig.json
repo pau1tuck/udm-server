@@ -1,21 +1,19 @@
 {
     "compilerOptions": {
-        "noEmit": false,
-        "incremental": false,
-        "target": "es6",
-        "module": "commonjs",
+        "target": "esnext",
+        "module": "esnext",
         "moduleResolution": "node",
         "lib": [
-            "ES5",
-            "ES6",
-            "DOM",
+            "es2020",
             "esnext.asynciterable"
         ],
+        "noEmit": false,
+        "incremental": false,
         "skipLibCheck": true,
         "sourceMap": false,
         "baseUrl": ".",
-        "rootDir": "./src",
-        "outDir": "./dist",
+        "rootDir": "src",
+        "outDir": "dist",
         "paths": {
             "@/*": [
                 "./src/*"

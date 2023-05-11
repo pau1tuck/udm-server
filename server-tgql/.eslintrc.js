@@ -1,16 +1,12 @@
 module.exports = {
     parser: "@typescript-eslint/parser", // Specifies the ESLint parser
     parserOptions: {
-        ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
+        ecmaVersion: 2023, // Allows for the parsing of modern ECMAScript features
         sourceType: "module", // Allows for the use of imports
         project: "tsconfig.json",
         tsconfigRootDir: __dirname,
     },
-    extends: [
-        "airbnb-typescript-prettier",
-        "prettier/@typescript-eslint",
-        "plugin:prettier/recommended",
-    ],
+    extends: ["airbnb-typescript-prettier", "prettier/@typescript-eslint", "plugin:prettier/recommended"],
     rules: {
         "no-console": [0],
         "import/prefer-default-export": "off",
