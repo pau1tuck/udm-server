@@ -1,0 +1,30 @@
+type Track {
+    id: String!
+    trackId: String!
+    artist: String!
+    title: String!
+    version: String
+    label: String!
+    month: Int!
+    year: Int!
+    buyUrl: String
+    votes: Int!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Query {
+    tracks: [Track!]!
+}
+
+type Mutation {
+    createTrack(
+        artist: String!
+        title: String!
+        version: String
+        label: String!
+        month: Int!
+        year: Int!
+        buyUrl: String
+    ): Track!
+}

@@ -6,7 +6,7 @@ import session from "express-session";
 import http from "http";
 import cors from "cors";
 import { json } from "body-parser";
-import { v4 } from "uuid";
+import { v4 as uuid4 } from "uuid";
 import typeDefs from "@/graphql/typeDefs";
 
 interface MyContext {
@@ -40,7 +40,7 @@ const server = async () => {
     app.use(
         session({
             name: SESSION_COOKIE,
-            genid: () => v4(),
+            genid: () => uuid4(),
             cookie: {
                 maxAge: 1000 * 60 * 60 * 24 * 365,
                 httpOnly: true,

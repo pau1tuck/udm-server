@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { gql } from "graphql-tag";
 
 // A schema is a collection of type definitions (hence "typeDefs")
@@ -6,7 +8,7 @@ import { gql } from "graphql-tag";
 // # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
 const typeDefs = gql`
-    ${require("./trackgql").default}
+    ${require("./schema.graphql").default}
 `;
 
 export default typeDefs;

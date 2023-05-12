@@ -6,7 +6,12 @@ module.exports = {
         project: "tsconfig.json",
         tsconfigRootDir: __dirname,
     },
-    extends: ["airbnb-typescript-prettier", "prettier/@typescript-eslint", "plugin:prettier/recommended"],
+    extends: [
+        "airbnb-typescript-prettier",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended",
+    ],
+    ignorePatterns: ["scripts/"],
     rules: {
         "no-console": [0],
         "import/prefer-default-export": "off",

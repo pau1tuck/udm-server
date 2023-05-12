@@ -1,0 +1,46 @@
+enum Role {
+    GUEST
+    MEMBER
+    STAFF
+    SUPERUSER
+}
+
+type User {
+    id: String!
+    facebookId: String
+    googleId: String
+    twitterId: String
+    givenName: String!
+    familyName: String!
+    city: String
+    country: String
+    email: String!
+    password: String!
+    verified: Boolean!
+    roles: [Role]!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Query {
+    users: [User!]!
+}
+
+type Mutation {
+    createUser(
+        givenName: String!
+        familyName: String!
+        city: String
+        country: String
+        email: String!
+        password: String!
+    ): User!
+    createStaff(
+        givenName: String!
+        familyName: String!
+        email: String!
+        password: String!
+        verified: Boolean!
+        roles: [Role!]!
+    ): User!
+}

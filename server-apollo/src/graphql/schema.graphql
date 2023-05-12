@@ -1,0 +1,54 @@
+type Track {
+  id: ID!
+  trackId: String!
+  artist: String!
+  title: String!
+  version: String
+  label: String!
+  month: Int!
+  year: Int!
+  buyUrl: String
+  votes: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Query {
+  tracks: [Track!]!
+  users: [User!]!
+}
+
+type Mutation {
+  createTrack(artist: String!, title: String!, version: String, label: String!, month: Int!, year: Int!, buyUrl: String): Track!
+  createUser(givenName: String!, familyName: String!, city: String, country: String, email: String!, password: String!): User!
+  createStaff(givenName: String!, familyName: String!, email: String!, password: String!, verified: Boolean!, roles: [Role!]!): User!
+}
+
+enum Role {
+  GUEST
+  MEMBER
+  STAFF
+  SUPERUSER
+}
+
+type User {
+  id: ID!
+  facebookId: String
+  googleId: String
+  twitterId: String
+  givenName: String!
+  familyName: String!
+  city: String
+  country: String
+  email: String!
+  password: String!
+  verified: Boolean!
+  roles: [Role]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
