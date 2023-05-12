@@ -13,10 +13,11 @@ module.exports = {
     ],
     ignorePatterns: ["scripts/"],
     rules: {
-        "no-console": [0],
+        "class-methods-use-this": [0],
         "import/prefer-default-export": "off",
         "max-classes-per-file": [0],
-        "class-methods-use-this": [0],
+        "no-console": [0],
+        "no-promise-executor-return": "off",
         "@typescript-eslint/no-unused-vars": [0],
         "@typescript-eslint/no-explicit-any": [0],
         "@typescript-eslint/explicit-module-boundary-types": [0],

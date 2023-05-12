@@ -1,5 +1,5 @@
 type Track {
-    id: String!
+    id: ID!
     trackId: String!
     artist: String!
     title: String!

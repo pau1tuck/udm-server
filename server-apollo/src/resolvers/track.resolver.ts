@@ -1,10 +1,10 @@
 import { v4 as uuid4 } from "uuid";
 import { IResolvers } from "@graphql-tools/utils";
-import { ITrack } from "@/types/track.interface"; // Assuming you have a separate file defining the Track type
+import { ITrack } from "../types/track.interface";
 
 const tracks: ITrack[] = []; // Sample data
 
-const trackResolvers: IResolvers = {
+const trackResolver: IResolvers = {
     Query: {
         tracks: (): ITrack[] => {
             // Resolver function for the "tracks" query
@@ -18,11 +18,11 @@ const trackResolvers: IResolvers = {
                 trackId: string;
                 artist: string;
                 title: string;
-                version?: string;
+                version?: string | null;
                 label: string;
                 month: number;
                 year: number;
-                buyUrl?: string;
+                buyUrl?: string | null;
             }
         ): ITrack => {
             // Resolver function for the "createTrack" mutation
@@ -31,21 +31,21 @@ const trackResolvers: IResolvers = {
                 trackId: args.trackId, // Use the user-provided trackId
                 artist: args.artist,
                 title: args.title,
-                version: args.version,
+                version: args.version || null,
                 label: args.label,
                 month: args.month,
                 year: args.year,
-                buyUrl: args.buyUrl,
+                buyUrl: args.buyUrl || null,
                 votes: 0, // Set initial vote count
                 createdAt: new Date().toISOString(), // Set the current timestamp
                 updatedAt: new Date().toISOString(), // Set the current timestamp
             };
 
-            tracks.push(newTrack); // Add the new track to the list
+            tracks.push(newTrack);
 
             return newTrack;
         },
     },
 };
 
-export default trackResolvers;
+export default trackResolver;

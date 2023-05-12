@@ -7,13 +7,13 @@
             "es2020",
             "esnext.asynciterable"
         ],
+        "baseUrl": ".",
+        "rootDir": "src",
+        "outDir": "dist",
         "noEmit": false,
         "incremental": true,
         "skipLibCheck": true,
         "sourceMap": false,
-        "baseUrl": ".",
-        "rootDir": "src",
-        "outDir": "dist",
         "strict": true,
         "allowJs": true,
         "checkJs": true,
@@ -43,7 +43,7 @@
     "include": [
         "env.d.ts",
         "src/**/*",
-        "scripts",
+        "src/graphql/*.graphql"
     ],
     "exclude": [
         "apollo.config.js",

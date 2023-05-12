@@ -2,9 +2,11 @@
     "name": "udm-server-apollo",
     "version": "3.1.0",
     "description": "UDM Server (Apollo Express)",
+    "type": "module",
     "main": "index.js",
     "scripts": {
-        "dev": "parallelshell 'tsc -w' 'nodemon dist/index.js'",
+        "build": "tsc && cp src/graphql/schema.graphql dist/graphql",
+        "dev": "concurrently \"tsc -w && cp src/graphql/schema.graphql dist/graphql\" \"nodemon dist/index.js\"",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -12,6 +14,9 @@
     "license": "MIT",
     "dependencies": {
         "@apollo/server": "^4.7.1",
+        "@graphql-tools/load-files": "^6.6.1",
+        "@graphql-tools/merge": "^8.4.2",
+        "@graphql-tools/utils": "^9.2.1",
         "@types/uuid": "^9.0.1",
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
@@ -20,8 +25,6 @@
         "graphql": "^16.6.0",
         "graphql-tag": "^2.12.6",
         "graphql-tools": "^8.3.20",
-        "@graphql-tools/merge": "^8.4.2",
-        "@graphql-tools/utils": "^9.2.1",
         "uuid": "^9.0.0"
     },
     "devDependencies": {
@@ -29,11 +32,11 @@
         "@types/cors": "^2.8.13",
         "@types/express": "^4.17.17",
         "@types/express-session": "^1.17.7",
-        "@types/node": "^20.1.2",
+        "@types/node": "^20.1.3",
+        "concurrently": "^8.0.1",
         "eslint": "^8.40.0",
         "eslint-config-airbnb-typescript-prettier": "^5.0.0",
         "glob": "^10.2.3",
-        "parallelshell": "^3.0.2",
         "prettier": "^2.8.8",
         "ts-node": "^10.9.1",
         "typescript": "^5.0.4"

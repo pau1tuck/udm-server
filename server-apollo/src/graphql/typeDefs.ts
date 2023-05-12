@@ -1,14 +1,10 @@
-/* eslint-disable global-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { gql } from "graphql-tag";
+import { readFileSync } from "fs";
+import { resolve } from "path";
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-// # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-
+const schemaPath = resolve(__dirname, "../src/graphql/schema.graphql");
 const typeDefs = gql`
-    ${require("./schema.graphql").default}
+    ${readFileSync(schemaPath, "utf-8")}
 `;
 
 export default typeDefs;

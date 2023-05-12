@@ -6,7 +6,7 @@ enum Role {
 }
 
 type User {
-    id: String!
+    id: ID!
     facebookId: String
     googleId: String
     twitterId: String

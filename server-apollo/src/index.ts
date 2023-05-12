@@ -7,7 +7,10 @@ import http from "http";
 import cors from "cors";
 import { json } from "body-parser";
 import { v4 as uuid4 } from "uuid";
-import typeDefs from "@/graphql/typeDefs";
+import { mergeResolvers } from "@graphql-tools/merge";
+import { loadFilesSync } from "@graphql-tools/load-files";
+import typeDefs from "./graphql/typeDefs";
+import trackResolver from "./resolvers/track.resolver";
 
 interface MyContext {
     token?: string;
@@ -27,6 +30,8 @@ const {
     REDIS_HOST,
     REDIS_PORT,
 } = process.env;
+
+const resolvers = mergeResolvers(loadFilesSync("./src/resolvers/*.resolver.*"));
 
 const server = async () => {
     const app = express();
@@ -58,11 +63,11 @@ const server = async () => {
     // for our httpServer.
     const apolloServer = new ApolloServer<MyContext>({
         typeDefs,
-        resolvers,
-        context: ({ req, res }: { req: Request; res: Response }) => ({
+        resolvers: [trackResolver],
+        /* context: ({ req, res }: { req: Request; res: Response }) => ({
             req,
             res,
-        }),
+        }), */
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
 
@@ -84,7 +89,12 @@ const server = async () => {
 
     // Modified server startup
     await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
-    console.log(`🚀 Server running on http://localhost:${PORT}/`);
 };
 
-server();
+server()
+    .then(() => {
+        console.log(`🚀 Server running on http://localhost:${PORT}/`);
+    })
+    .catch((error) => {
+        console.error("Failed to start the server:", error);
+    });
