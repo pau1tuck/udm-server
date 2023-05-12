@@ -1,3 +1,4 @@
+// index.ts
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -31,7 +32,7 @@ const {
     REDIS_PORT,
 } = process.env;
 
-const resolvers = mergeResolvers(loadFilesSync("./src/resolvers/*.resolver.*"));
+const resolvers = mergeResolvers([trackResolver]);
 
 const server = async () => {
     const app = express();
@@ -63,7 +64,7 @@ const server = async () => {
     // for our httpServer.
     const apolloServer = new ApolloServer<MyContext>({
         typeDefs,
-        resolvers: [trackResolver],
+        resolvers,
         /* context: ({ req, res }: { req: Request; res: Response }) => ({
             req,
             res,

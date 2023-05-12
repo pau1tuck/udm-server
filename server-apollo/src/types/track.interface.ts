@@ -1,3 +1,4 @@
+// @/types/track.interface.ts
 export interface ITrack {
     id: string;
     trackId: string;

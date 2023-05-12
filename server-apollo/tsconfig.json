@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
+        "target": "es6",
+        "module": "commonjs",
         "moduleResolution": "node",
         "lib": [
             "es2020",
@@ -13,12 +13,12 @@
         "noEmit": false,
         "incremental": true,
         "skipLibCheck": true,
-        "sourceMap": false,
+        "sourceMap": true,
         "strict": true,
-        "allowJs": true,
-        "checkJs": true,
+        "allowJs": false,
+        "checkJs": false,
         "allowSyntheticDefaultImports": true,
-        "declaration": false,
+        "declaration": true,
         "downlevelIteration": true,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
@@ -41,12 +41,13 @@
         },
     },
     "include": [
-        "env.d.ts",
-        "src/**/*",
-        "src/graphql/*.graphql"
+        "src/**/*.ts",
+        "src/**/*.js", // Include JavaScript files
+        "src/graphql/*.graphql",
     ],
     "exclude": [
         "apollo.config.js",
+        "env.d.ts",
         "node_modules/",
         "scripts/"
     ]
