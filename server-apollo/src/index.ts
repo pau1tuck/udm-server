@@ -1,5 +1,4 @@
 // index.ts
-import dotenv from "dotenv";
 import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
@@ -12,52 +11,47 @@ import { json } from "body-parser";
 import { v4 as uuid4 } from "uuid";
 import { mergeResolvers } from "@graphql-tools/merge";
 import { loadFilesSync } from "@graphql-tools/load-files";
+import env from "./config/env.config";
+import dataSource from "./config/database.config";
 import typeDefs from "./graphql/typeDefs";
-import trackResolver from "./resolvers/track.resolver";
+import trackResolver from "./resolver/track.resolver";
 
 interface MyContext {
     token?: string;
 }
 
-dotenv.config();
-const PRODUCTION = process.env.NODE_ENV === "production";
-
-const {
-    DEBUG,
-    HOST,
-    PORT,
-    CORS_ORIGIN,
-    SESSION_COOKIE,
-    SESSION_SECRET,
-    DB_HOST,
-    DB_PORT,
-    REDIS_HOST,
-    REDIS_PORT,
-} = process.env;
-
 const resolvers = mergeResolvers([trackResolver]);
 
 const server = async () => {
+    // Initialize TypeOrm database:
+    dataSource
+        .initialize()
+        .then(async () => {
+            console.log(`Database ${env.DB_NAME} initialized on port ${env.DB_PORT}.`);
+        })
+        .catch((error) => console.log(error));
+
+    // Initialize Express server as "app":
     const app = express();
-    // Our httpServer handles incoming requests to our Express app.
-    // Below, we tell Apollo Server to "drain" this httpServer,
-    // enabling our servers to shut down gracefully.
+
+    // httpServer handles incoming requests to the Express app:
     const httpServer = http.createServer(app);
 
     app.disable("x-powered-by");
 
+    // Create an Express "session" to store user session data:
     app.use(
         session({
-            name: SESSION_COOKIE,
+            name: env.SESSION_COOKIE,
             genid: () => uuid4(),
             cookie: {
-                maxAge: 1000 * 60 * 60 * 24 * 365,
+                maxAge: 36000 * 24 * 365,
                 httpOnly: true,
                 sameSite: "lax",
                 secure: "auto",
-                domain: PRODUCTION ? ".udm.music" : undefined,
+                domain: env.PRODUCTION ? env.DOMAIN_NAME : undefined,
             },
-            secret: SESSION_SECRET || "secret",
+            secret: env.SESSION_SECRET || "secret",
             resave: false,
             saveUninitialized: false,
         })
@@ -72,6 +66,7 @@ const server = async () => {
             req,
             res,
         }), */
+        // Apollo Server should drain httpServer, allowing the server to shut down gracefully. */
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
 
@@ -92,13 +87,13 @@ const server = async () => {
     );
 
     // Modified server startup
-    await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
+    await new Promise<void>((resolve) => httpServer.listen({ port: env.PORT }, resolve));
 };
 
 server()
     .then(() => {
-        console.log(`🚀 Server running on http://localhost:${PORT}/`);
+        console.log(`🚀 Server running on http://localhost:${env.PORT}.`);
     })
     .catch((error) => {
-        console.error("Failed to start the server:", error);
+        console.error(`Failed to start the server on ${env.PORT}:`, error);
     });

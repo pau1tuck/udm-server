@@ -5,12 +5,15 @@ declare namespace NodeJS {
         WEB_CONCURRENCY: number;
         HOST: string;
         PORT: number;
+        DOMAIN_NAME: string;
         CORS_ORIGIN: string;
         SESSION_COOKIE: string;
         SESSION_SECRET: string;
-        DB_URL: string;
         DB_HOST: string;
         DB_PORT: number;
+        DB_NAME: string;
+        DB_USER: string;
+        DB_PASS: string;
         REDIS_HOST: string;
         REDIS_PORT: number;
         REDIS_FAMILY: number;
