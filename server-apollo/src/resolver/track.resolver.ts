@@ -1,5 +1,5 @@
 // @/resolvers/track.resolver.ts
-import { v4 as uuid4 } from "uuid";
+import { v4 as uuid } from "uuid";
 import { IResolvers } from "@graphql-tools/utils";
 import { ITrack } from "../types/track.interface";
 
@@ -28,7 +28,7 @@ const trackResolver: IResolvers = {
         ): ITrack => {
             // Resolver function for the "createTrack" mutation
             const newTrack: ITrack = {
-                id: uuid4(), // Generate UUID v4 as the ID
+                id: uuid(), // Generate UUID v4 as the ID
                 trackId: args.trackId, // Use the user-provided trackId
                 artist: args.artist,
                 title: args.title,

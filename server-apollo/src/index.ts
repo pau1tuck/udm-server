@@ -1,5 +1,6 @@
 // index.ts
 import "reflect-metadata";
+import { v4 as uuid } from "uuid";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -7,14 +8,14 @@ import express, { Request, Response } from "express";
 import session from "express-session";
 import http from "http";
 import cors from "cors";
-import { json } from "body-parser";
-import { v4 as uuid4 } from "uuid";
+import bodyParser from "body-parser";
 import { mergeResolvers } from "@graphql-tools/merge";
-import { loadFilesSync } from "@graphql-tools/load-files";
+import pm2 from "pm2";
 import env from "./config/env.config";
 import dataSource from "./config/database.config";
 import typeDefs from "./graphql/typeDefs";
 import trackResolver from "./resolver/track.resolver";
+import pm2Options from "./config/pm2.config";
 
 interface MyContext {
     token?: string;
@@ -23,13 +24,15 @@ interface MyContext {
 const resolvers = mergeResolvers([trackResolver]);
 
 const server = async () => {
-    // Initialize TypeOrm database:
-    dataSource
-        .initialize()
-        .then(async () => {
-            console.log(`Database ${env.DB_NAME} initialized on port ${env.DB_PORT}.`);
-        })
-        .catch((error) => console.log(error));
+    // Initialize TypeOrm database if configuration exists:
+    if (env.DB_NAME) {
+        dataSource
+            .initialize()
+            .then(async () => {
+                console.log(`Database ${env.DB_NAME} initialized on port ${env.DB_PORT}.`);
+            })
+            .catch((error) => console.log(error));
+    }
 
     // Initialize Express server as "app":
     const app = express();
@@ -43,7 +46,7 @@ const server = async () => {
     app.use(
         session({
             name: env.SESSION_COOKIE,
-            genid: () => uuid4(),
+            genid: () => uuid(),
             cookie: {
                 maxAge: 36000 * 24 * 365,
                 httpOnly: true,
@@ -57,8 +60,7 @@ const server = async () => {
         })
     );
 
-    // Same ApolloServer initialization as before, plus the drain plugin
-    // for our httpServer.
+    // Initialize Apollo Server:
     const apolloServer = new ApolloServer<MyContext>({
         typeDefs,
         resolvers,
@@ -73,27 +75,40 @@ const server = async () => {
     // Ensure we wait for our server to start
     await apolloServer.start();
 
-    // Set up our Express middleware to handle CORS, body parsing,
-    // and our expressMiddleware function.
+    // Set up Express middleware with "app.use()":
     app.use(
         "/",
+        // Middleware function that enables Cross-Origin Resource Sharing (CORS) support for "/" route:
         cors<cors.CorsRequest>(),
-        json(),
-        // expressMiddleware accepts the same arguments:
-        // an Apollo Server instance and optional configuration options
+        // Middleware function that parses incoming request bodies in JSON format:
+        bodyParser.json(),
+        // Middleware function that integrates Apollo Server with Express:
         expressMiddleware(apolloServer, {
             context: async ({ req }) => ({ token: req.headers.token }),
         })
     );
 
-    // Modified server startup
+    // Modified server startup as an asynchronous promise:
     await new Promise<void>((resolve) => httpServer.listen({ port: env.PORT }, resolve));
 };
 
-server()
-    .then(() => {
-        console.log(`🚀 Server running on http://localhost:${env.PORT}.`);
-    })
-    .catch((error) => {
-        console.error(`Failed to start the server on ${env.PORT}:`, error);
-    });
+const initializeServer = () => {
+    server()
+        .then(() => {
+            console.log(`🚀 Server running on http://localhost:${env.PORT}.`);
+        })
+        .catch((error) => {
+            console.error(`Failed to start the server on ${env.PORT}:`, error);
+        });
+};
+
+// Start the server with PM2
+pm2.start(pm2Options, (error, _) => {
+    if (error) {
+        console.error("Failed to start the server with PM2:", error);
+        process.exit(1); // Exit the process if PM2 fails to start
+    }
+
+    console.log(`Server starting with PM2...`);
+    initializeServer();
+});
