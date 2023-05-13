@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { RedisStore, redisClient } from "./redis.config";
+import { RedisStore } from "./redis.config";
 import env from "./env.config";
 
 const sessionConfig = {
