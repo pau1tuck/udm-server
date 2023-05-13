@@ -13,3 +13,16 @@ export interface ITrack {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface ITrackUpdate {
+    id: string;
+    trackId: string;
+    artist: string;
+    title: string;
+    version: string | null;
+    label: string;
+    month: number;
+    year: number;
+    buyUrl: string | null;
+    updatedAt: string;
+}

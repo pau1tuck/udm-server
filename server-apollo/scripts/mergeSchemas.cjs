@@ -3,7 +3,6 @@ const { writeFileSync } = require("fs");
 const { mergeTypeDefs } = require("@graphql-tools/merge");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 const { print } = require("graphql");
-const { v4: uuidv4 } = require("uuid");
 
 const schemaFiles = join(__dirname, "../src/graphql/*.graphql");
 const loadedFiles = loadFilesSync(schemaFiles);

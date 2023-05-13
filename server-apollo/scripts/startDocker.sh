@@ -21,7 +21,9 @@ docker run --name udm-server-apollo -e POSTGRES_USER=$DB_USER -e POSTGRES_PASSWO
 
 # Wait for the PostgreSQL container to start
 echo "Waiting for PostgreSQL container to start..."
-sleep 5
+until docker exec -it udm-server-apollo pg_isready -U $DB_USER; do
+  sleep 1
+done
 
 # Create the database if it doesn't exist
 echo "Creating database $DB_NAME..."

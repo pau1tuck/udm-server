@@ -1,3 +1,4 @@
+// @/dummyData.ts
 export const data = [
     {
         id: "1",

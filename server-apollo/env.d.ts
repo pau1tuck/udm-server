@@ -1,12 +1,12 @@
 declare namespace NodeJS {
     export interface ProcessEnv {
+        NAME: string;
         NODE_ENV: string;
         DEBUG: boolean;
         WEB_CONCURRENCY: number;
         HOST: string;
         PORT: number;
-        DOMAIN_NAME: string;
-        CORS_ORIGIN: string;
+        CLIENT_DOMAIN_NAME: string;
         SESSION_COOKIE: string;
         SESSION_SECRET: string;
         DB_HOST: string;

@@ -1,15 +1,26 @@
 // @/resolvers/track.resolver.ts
 import { v4 as uuid } from "uuid";
 import { IResolvers } from "@graphql-tools/utils";
-import { ITrack } from "../types/track.interface";
+import { ITrack, ITrackUpdate } from "../types/track.interface";
 
-const tracks: ITrack[] = []; // Sample data
+const track: any = {};
+const tracks: ITrack[] = [];
 
 const trackResolver: IResolvers = {
     Query: {
+        // Read all
         tracks: (): ITrack[] => {
             // Resolver function for the "tracks" query
             return tracks;
+        },
+        // Read one
+        track: (
+            _: undefined,
+            args: {
+                id: string;
+            }
+        ) => {
+            return track;
         },
     },
     Mutation: {
@@ -45,6 +56,35 @@ const trackResolver: IResolvers = {
             tracks.push(newTrack);
 
             return newTrack;
+        },
+
+        updateTrack: (
+            _: undefined,
+            args: {
+                id: string;
+                trackId: string;
+                artist: string;
+                title: string;
+                version?: string | null;
+                label: string;
+                month: number;
+                year: number;
+                buyUrl?: string | null;
+            }
+        ): ITrackUpdate => {
+            const updatedTrack: ITrackUpdate = {
+                id: args.id,
+                trackId: args.trackId,
+                artist: args.artist,
+                title: args.title,
+                version: args.version || null,
+                label: args.label,
+                month: args.month,
+                year: args.year,
+                buyUrl: args.buyUrl || null,
+                updatedAt: new Date().toISOString(),
+            };
+            return updatedTrack;
         },
     },
 };
