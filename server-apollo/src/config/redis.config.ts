@@ -1,5 +1,5 @@
+// @/config/redis.config.ts
 import Redis from "ioredis";
-import session from "express-session";
 import ConnectRedis from "connect-redis";
 import env from "./env.config";
 
@@ -12,4 +12,8 @@ export const redisClient = new Redis({
     enableReadyCheck: true,
 });
 
-export const RedisStore = new ConnectRedis({ client: redisClient });
+export const RedisStore = new ConnectRedis({
+    client: redisClient,
+    disableTouch: true,
+    disableTTL: true,
+});
