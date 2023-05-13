@@ -1,4 +1,4 @@
-# @/graphql.schema.graphql
+# @/graphql/schema.graphql
 type Track {
     id: ID!
     trackId: String!

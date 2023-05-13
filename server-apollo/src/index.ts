@@ -1,4 +1,6 @@
 // index.ts
+import dotenv from "dotenv";
+import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -17,6 +19,7 @@ interface MyContext {
     token?: string;
 }
 
+dotenv.config();
 const PRODUCTION = process.env.NODE_ENV === "production";
 
 const {

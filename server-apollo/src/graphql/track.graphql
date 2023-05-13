@@ -1,3 +1,4 @@
+# @/graphql/track.graphql
 type Track {
     id: ID!
     trackId: String!

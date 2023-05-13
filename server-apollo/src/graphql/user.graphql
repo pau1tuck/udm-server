@@ -1,3 +1,4 @@
+# @/graphql/user.graphql
 enum Role {
     GUEST
     MEMBER
