@@ -13,13 +13,14 @@ import { mergeResolvers } from "@graphql-tools/merge";
 import pm2 from "pm2";
 import env from "./config/env.config";
 import dataSource from "./config/database.config";
+import sessionConfig from "./config/session.config";
 import typeDefs from "./graphql/typeDefs";
 import trackResolver from "./resolver/track.resolver";
 import pm2Options from "./config/pm2.config";
 
-interface MyContext {
+type TContext = {
     token?: string;
-}
+};
 
 const resolvers = mergeResolvers([trackResolver]);
 
@@ -43,25 +44,10 @@ const server = async () => {
     app.disable("x-powered-by");
 
     // Create an Express "session" to store user session data:
-    app.use(
-        session({
-            name: env.SESSION_COOKIE,
-            genid: () => uuid(),
-            cookie: {
-                maxAge: 36000 * 24 * 365,
-                httpOnly: true,
-                sameSite: "lax",
-                secure: "auto",
-                domain: env.PRODUCTION ? env.DOMAIN_NAME : undefined,
-            },
-            secret: env.SESSION_SECRET || "secret",
-            resave: false,
-            saveUninitialized: false,
-        })
-    );
+    app.use(session(sessionConfig));
 
     // Initialize Apollo Server:
-    const apolloServer = new ApolloServer<MyContext>({
+    const apolloServer = new ApolloServer<TContext>({
         typeDefs,
         resolvers,
         /* context: ({ req, res }: { req: Request; res: Response }) => ({

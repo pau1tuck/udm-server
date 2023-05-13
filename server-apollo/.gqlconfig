@@ -1,6 +1,6 @@
 /* .gqlconfig */
 {
     schema: {
-        files: "src/graphql/**/*.gql",
+        files: "src/graphql/schema.graphql",
     },
 }
