@@ -10,9 +10,13 @@ if [[ "$(docker images -q udm-server-apollo 2> /dev/null)" == "" ]]; then
     docker build -t udm-server-apollo .
 fi
 
-# Start the Docker container
-echo "Starting udm-server-apollo container..."
-docker run --name udm-server-apollo -e POSTGRES_USER=$DB_USER -e POSTGRES_PASSWORD=$DB_PASS -e POSTGRES_DB=$DB_NAME -p $DB_PORT:5432 -v $(pwd)/dist:/app/dist -d udm-server-apollo
+# Start the Docker containers using docker-compose
+echo "Starting udm-server-apollo, postgresql, and redis containers..."
+docker-compose up -d
+
+# Start the development server
+echo "Starting development server..."
+docker exec -itd udm-server-apollo sh -c "cd /app && node dist/server.js"
 
 # Keep the container running and display logs
 echo "Container is running. Press Ctrl+C to stop."

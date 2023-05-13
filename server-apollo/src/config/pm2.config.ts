@@ -3,7 +3,7 @@ import env from "./env.config";
 
 const pm2Config: StartOptions = {
     name: env.NAME,
-    script: "dist/index.js",
+    script: "dist/server.js",
     exec_mode: "cluster",
     instances: env.WORKERS,
     env: {

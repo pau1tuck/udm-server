@@ -2,11 +2,12 @@
     "name": "udm-server-apollo",
     "version": "3.1.0",
     "description": "UDM Server (Apollo Express)",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
         "build": "tsc && mkdir -p dist/graphql && cp src/graphql/schema.graphql dist/graphql",
-        "dev": "concurrently \"tsc -w && mkdir -p dist/graphql && cp src/graphql/schema.graphql dist/graphql\" \"nodemon dist/index.js\"",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "concurrently \"tsc -w && mkdir -p dist/graphql && cp src/graphql/schema.graphql dist/graphql\" \"nodemon dist/server.js\"",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start-dev": "nodemon dist/server.js"
     },
     "keywords": [],
     "author": "Paul D.R. Tuck @pau1tuck",

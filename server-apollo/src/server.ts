@@ -16,13 +16,11 @@ import sessionConfig from "./config/session.config";
 import { redisClient } from "./config/redis.config";
 import pm2Config from "./config/pm2.config";
 import typeDefs from "./graphql/typeDefs";
-import trackResolver from "./resolver/track.resolver";
+import resolvers from "./resolver/resolvers";
 
 type TContext = {
     token?: string;
 };
-
-const resolvers = mergeResolvers([trackResolver]); // !!!
 
 const server = async () => {
     // Initialize TypeOrm if database configuration exists:

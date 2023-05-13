@@ -1,14 +1,41 @@
+# docker-compose.yml
 version: '3'
 services:
+  udm-server-apollo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DB_HOST=localhost
+      - DB_PORT=5432
+      - DB_NAME=udm-apollo-server.db
+      - DB_USER=admin
+      - DB_PASSWORD=badpassword
+    ports:
+      - 5000:5000
+    volumes:
+      - ./backup.sql:/backup.sql
+    depends_on:
+      - postgres
+      - redis
+
   postgres:
     image: postgres:14
     restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: badpassword
-      POSTGRES_DB: udm-server-apollo-db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./backup.sql:/backup.sql
+
+  redis:
+    image: redis:latest
+    restart: always
+    volumes:
+      - redis-data:/data
 
 volumes:
   postgres-data:
+  redis-data:
