@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 
 @Entity()
-export class Track extends BaseEntity {
+class Track extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
 
@@ -46,3 +46,5 @@ export class Track extends BaseEntity {
     @UpdateDateColumn()
     updatedAt!: Date;
 }
+
+export default Track;

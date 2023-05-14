@@ -1,7 +1,9 @@
-// @/config/typeorm.config.ts
+// @/config/database.config.ts
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import env from "./env.config";
+import User from "../entity/user.entity";
+import Track from "../entity/track.entity";
 
 const dataSource = new DataSource({
     type: "postgres",
@@ -12,7 +14,7 @@ const dataSource = new DataSource({
     password: env.DB_PASS,
     synchronize: true,
     logging: !env.PRODUCTION,
-    entities: [],
+    entities: [User, Track],
     migrations: [],
     subscribers: [],
 });

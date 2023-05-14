@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 
 @Entity()
-export class User extends BaseEntity {
+class User extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
 
@@ -55,3 +55,5 @@ export class User extends BaseEntity {
     @UpdateDateColumn()
     updatedAt!: Date;
 }
+
+export default User;
