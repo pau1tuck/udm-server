@@ -8,7 +8,6 @@ import session from "express-session";
 import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { mergeResolvers } from "@graphql-tools/merge";
 import pm2 from "pm2";
 import env from "./config/env.config";
 import dataSource from "./config/database.config";
@@ -55,7 +54,7 @@ const server = async () => {
     const apolloServer = new ApolloServer<TContext>({
         typeDefs,
         resolvers,
-        // Apollo Server should drain httpServer, allowing the server to shut down gracefully. */
+        // Apollo Server should drain httpServer, allowing the server to shut down gracefully.
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
 
