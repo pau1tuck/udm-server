@@ -18,7 +18,9 @@ const staffResolver: IResolvers = {
                 staff.email = input.email;
                 staff.password = input.password;
                 staff.verified = true;
-                staff.roles = input.roles;
+                staff.roles = input.isSuperUser
+                    ? ["MEMBER", "STAFF", "SUPERUSER"]
+                    : ["MEMBER", "STAFF"];
 
                 // Save the staff entity to the database
                 await staff.save();

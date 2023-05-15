@@ -14,6 +14,7 @@ const dataSource = new DataSource({
     password: env.DB_PASS,
     synchronize: true,
     logging: !env.PRODUCTION,
+    logger: "advanced-console",
     entities: [User, Track],
     migrations: [],
     subscribers: [],
