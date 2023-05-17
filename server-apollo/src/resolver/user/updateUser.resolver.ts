@@ -10,17 +10,11 @@ const updateUserResolver: IResolvers = {
 
                 // If user not found, throw an error
                 if (!user) {
-                    throw new Error("User not found");
+                    throw new Error("User not found.");
                 }
 
-                // Update the user properties from the input arguments
-                user.givenName = input.givenName;
-                user.familyName = input.familyName;
-                user.city = input.city;
-                user.country = input.country;
-                user.avatar = input.avatar;
-                user.email = input.email;
-                user.password = input.password;
+                // Perform dynamic updates based on the provided fields in the input
+                Object.assign(user, input);
 
                 // Save the updated user entity to the database
                 await user.save();
