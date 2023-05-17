@@ -3,7 +3,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import argon2 from "argon2";
 import User from "../entity/user.entity";
-import {IUser} from "../types/user.interface"
+import { IUser } from "../types/user.interface"
 
 
 // Define the local strategy for username/password authentication
@@ -18,19 +18,19 @@ passport.use(
         // Find the user by email in the database
         const user = await User.findOne({ where: { email: username } });
 
-        // Check if user exists
+        // Check if the user exists
         if (!user) {
           // User not found, indicate failure
           return done(null, false, { message: "Email address not registered." });
         }
-
+        // Check if the email address has been verified
         if (!user.verified) {
-          return done(null, false, { message: "Email address not verified."})
+          return done(null, false, { message: "Email address not verified." })
         }
 
+        // Compare passwords
         let checkPassword: boolean = false;
 
-        // Compare passwords
         if (user.password) {
           checkPassword = await argon2.verify(user.password, password);
         }
@@ -40,8 +40,9 @@ passport.use(
           return done(null, false, { message: "Invalid password." });
         }
 
-        // Authentication successful, pass the user object to the next middleware
+        // Authentication successful, pass the user object
         return done(null, user);
+
       } catch (error) {
         // Handle any errors that occur during authentication
         return done(error);
