@@ -17,6 +17,8 @@ const createUserResolver: IResolvers = {
                 // Set the required user properties from the input arguments
                 user.givenName = input.givenName;
                 user.familyName = input.familyName;
+                user.city = input.city;
+                user.country = input.country;
                 user.email = input.email;
                 user.password = input.password;
 
