@@ -35,8 +35,9 @@ const createStaffResolver: IResolvers = {
                 } catch (error) {
                     throw new Error("Failed to create new staff member.");
                 }
+            } else {
+                throw new Error("Access denied.");
             }
-            return undefined;
         },
     },
 };

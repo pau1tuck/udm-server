@@ -1,7 +1,7 @@
-// @/resolvers/track.resolver.ts
+// @/resolvers/track/track.resolver.ts
 import { v4 as uuid } from "uuid";
 import { IResolvers } from "@graphql-tools/utils";
-import { ITrack, ITrackUpdate } from "../types/track.interface";
+import { ITrack, ITrackUpdate } from "../../types/track.interface";
 
 const track: any = {};
 const tracks: ITrack[] = [];

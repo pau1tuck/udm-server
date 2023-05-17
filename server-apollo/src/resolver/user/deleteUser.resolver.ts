@@ -24,8 +24,9 @@ const deleteUserResolver: IResolvers = {
                 } catch (error) {
                     throw new Error("Failed to delete user.");
                 }
+            } else {
+                throw new Error("Access denied.");
             }
-            return undefined;
         },
     },
 };
