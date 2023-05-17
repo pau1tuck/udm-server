@@ -5,6 +5,8 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import express, { Request, Response } from "express";
 import session from "express-session";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
 import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
