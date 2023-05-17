@@ -3,7 +3,7 @@ import { Redis } from "ioredis";
 
 export interface IContext {
     req: Request & {
-        session: { userId?: string; roles?: string[] };
+        session: { userId: string; roles: string[] };
     };
     res: Response;
     redis: Redis;

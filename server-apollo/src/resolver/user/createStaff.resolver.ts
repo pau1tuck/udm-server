@@ -1,34 +1,44 @@
 import { v4 as uuid } from "uuid";
 import { IResolvers } from "@graphql-tools/utils";
 import User from "../../entity/user.entity";
+import { isSuperUser } from "../../utils/check-permissions";
 
-const staffResolver: IResolvers = {
+const createStaffResolver: IResolvers = {
     Mutation: {
-        createStaff: async (_, args) => {
-            try {
-                const { input } = args;
+        createStaff: async (_, args, { req, res }) => {
+            if (
+                isSuperUser(req, res, () => {
+                    return undefined;
+                })
+            ) {
+                try {
+                    const { input } = args;
 
-                // Create a new instance of the User entity
-                const staff = new User();
+                    // Create a new instance of the User entity
+                    const staff = new User();
 
-                // Generate a UUID for the staff ID
-                staff.id = uuid();
+                    // Generate a UUID for the staff ID
+                    staff.id = uuid();
 
-                // Set the staff properties from the input arguments
-                staff.email = input.email;
-                staff.password = input.password;
-                staff.verified = true;
-                staff.roles = input.isSuperUser
-                    ? ["MEMBER", "STAFF", "SUPERUSER"]
-                    : ["MEMBER", "STAFF"];
+                    // Set the staff properties from the input arguments
+                    staff.givenName = input.givenName;
+                    staff.familyName = input.familyName;
+                    staff.email = input.email;
+                    staff.password = input.password;
+                    staff.verified = true;
+                    staff.roles = ["MEMBER", "STAFF"];
 
-                // Save the staff entity to the database
-                await staff.save();
+                    // Save the staff entity to the database
+                    await staff.save();
 
-                return staff;
-            } catch (error) {
-                throw new Error("Failed to create new staff member.");
+                    return staff;
+                } catch (error) {
+                    throw new Error("Failed to create new staff member.");
+                }
             }
+            return undefined;
         },
     },
 };
+
+export default createStaffResolver;

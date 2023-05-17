@@ -14,6 +14,7 @@ import pm2 from "pm2";
 import env from "./config/env.config";
 import dataSource from "./config/database.config";
 import sessionConfig from "./config/session.config";
+import "./config/passport.config";
 import { redisClient } from "./config/redis.config";
 import pm2Config from "./config/pm2.config";
 import typeDefs from "./graphql/typeDefs";
@@ -48,6 +49,10 @@ const server = async () => {
             credentials: true,
         })
     );
+
+    // Configure Passport.js middleware
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     // Create an Express session to store user session data:
     app.use(session(sessionConfig));
