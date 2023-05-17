@@ -6,7 +6,6 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import express, { Request, Response } from "express";
 import session from "express-session";
 import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
 import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -30,7 +29,9 @@ const server = async () => {
         dataSource
             .initialize()
             .then(async () => {
-                console.log(`Database ${env.DB_NAME} initialized on port ${env.DB_PORT}.`);
+                console.log(
+                    `Database ${env.DB_NAME} initialized on ${env.DB_HOST}:${env.DB_PORT}.`
+                );
             })
             .catch((error) => console.log(error));
     }
@@ -93,10 +94,10 @@ const server = async () => {
 const initializeServer = () => {
     server()
         .then(() => {
-            console.log(`🚀 Server running on http://localhost:${env.PORT}.`);
+            console.log(`🚀 Server running on ${env.HOST}:${env.PORT}.`);
         })
         .catch((error) => {
-            console.error(`Failed to start the server on ${env.PORT}:`, error);
+            console.error(`Failed to start the server on ${env.HOST}:${env.PORT}:`, error);
         });
 };
 
@@ -107,6 +108,6 @@ pm2.start(pm2Config, (error, _) => {
         process.exit(1); // Exit the process if PM2 fails to start
     }
 
-    console.log(`Server starting with PM2...`);
+    console.log(`Starting server with PM2...`);
     initializeServer();
 });

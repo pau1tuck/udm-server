@@ -20,8 +20,10 @@ const {
     DB_PASS,
     REDIS_HOST,
     REDIS_PORT,
-    REDIS_FAMILY,
+    REDIS_DB_NAME,
+    REDIS_USER,
     REDIS_PASS,
+    REDIS_FAMILY,
     REDIS_DB,
 } = process.env;
 
@@ -44,8 +46,10 @@ const env = {
     DB_PASS: DB_PASS || "badpassword",
     REDIS_HOST: REDIS_HOST || "localhost",
     REDIS_PORT: Number(REDIS_PORT) || 6379,
-    REDIS_FAMILY: Number(REDIS_FAMILY) || 4,
+    REDIS_DB_NAME: REDIS_DB_NAME || "",
+    REDIS_USER: REDIS_USER || "",
     REDIS_PASS: REDIS_PASS || "",
+    REDIS_FAMILY: Number(REDIS_FAMILY) || 4,
     REDIS_DB: Number(REDIS_DB) || 0,
 };
 

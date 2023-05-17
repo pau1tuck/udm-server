@@ -7,6 +7,7 @@ export const redisClient = new Redis({
     host: env.REDIS_HOST,
     port: env.REDIS_PORT,
     family: env.REDIS_FAMILY,
+    name: env.REDIS_DB_NAME,
     password: env.REDIS_PASS,
     db: env.REDIS_DB,
     enableReadyCheck: true,
