@@ -49,7 +49,7 @@ const env = {
     REDIS_DB_NAME: REDIS_DB_NAME || "",
     REDIS_USER: REDIS_USER || "",
     REDIS_PASS: REDIS_PASS || "",
-    REDIS_FAMILY: Number(REDIS_FAMILY) || 4,
+    REDIS_FAMILY: Number(REDIS_FAMILY) || 0,
     REDIS_DB: Number(REDIS_DB) || 0,
 };
 

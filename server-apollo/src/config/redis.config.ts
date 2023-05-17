@@ -6,10 +6,11 @@ import env from "./env.config";
 export const redisClient = new Redis({
     host: env.REDIS_HOST,
     port: env.REDIS_PORT,
-    family: env.REDIS_FAMILY,
     name: env.REDIS_DB_NAME,
+    username: env.REDIS_USER,
     password: env.REDIS_PASS,
-    db: env.REDIS_DB,
+    // family: env.REDIS_FAMILY,
+    // db: env.REDIS_DB,
     enableReadyCheck: true,
 });
 
