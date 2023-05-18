@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
-import express, { Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import session from "express-session";
 import passport from "passport";
 import http from "http";
@@ -18,6 +18,7 @@ import { redisClient } from "./config/redis.config";
 import pm2Config from "./config/pm2.config";
 import typeDefs from "./graphql/typeDefs";
 import resolvers from "./resolver/resolvers";
+import routes from "./router/routes";
 
 type TContext = {
     token?: string;
@@ -37,7 +38,7 @@ const server = async () => {
     }
 
     // Initialize Express server:
-    const app = express();
+    const app: Application = express();
 
     // httpServer handles incoming requests to the Express app:
     const httpServer = http.createServer(app);
@@ -86,6 +87,8 @@ const server = async () => {
             }),
         })
     );
+
+    app.use("/", routes);
 
     // Modified server startup as an asynchronous promise:
     await new Promise<void>((resolve) => httpServer.listen({ port: env.PORT }, resolve));
