@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "build": "tsc && mkdir -p dist/graphql && cp src/graphql/schema.graphql dist/graphql",
-        "dev": "concurrently \"tsc -w && mkdir -p dist/graphql && cp src/graphql/schema.graphql dist/graphql\" \"nodemon dist/server.js\"",
+        "dev": "concurrently \"./node_modules/.bin/tsc -w\" \"mkdir -p ./dist/graphql && cp ./src/graphql/schema.graphql ./dist/graphql\" \"mkdir -p ./dist/views && cp -R ./src/views ./dist/\" \"./node_modules/.bin/nodemon ./dist/server.js\"",
         "dev:win": "concurrently \"tsc -w && mkdir dist\\graphql && copy src\\graphql\\schema.graphql dist\\graphql\" \"nodemon dist\\server.js\"",
         "run": "nodemon dist/server.js",
         "test": "echo \"Error: no test specified\" && exit 1",
