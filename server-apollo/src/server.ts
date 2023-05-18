@@ -1,11 +1,10 @@
-// @/index.ts
+// @/server.ts
 import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import express, { Application, Request, Response } from "express";
 import session from "express-session";
-import exphbs from "express-handlebars";
 import passport from "passport";
 import http from "http";
 import cors from "cors";

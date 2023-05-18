@@ -1,8 +1,11 @@
+// @/config/handlebars.config.js
 import path from "path";
 import moment from "moment";
-import exphbs from "express-handlebars";
+import expressHandlebars from "express-handlebars";
 
-const handlebars = exphbs.create({
+const exphbs = expressHandlebars.create;
+
+const handlebars = exphbs({
     defaultLayout: "main",
     layoutsDir: path.join(__dirname, "views/layouts"),
     partialsDir: path.join(__dirname, "views/partials"),

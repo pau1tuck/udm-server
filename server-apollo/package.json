@@ -7,6 +7,7 @@
         "build": "tsc && mkdir -p dist/graphql && cp src/graphql/schema.graphql dist/graphql",
         "dev": "concurrently \"tsc -w && mkdir -p dist/graphql && cp src/graphql/schema.graphql dist/graphql\" \"nodemon dist/server.js\"",
         "dev:win": "concurrently \"tsc -w && mkdir dist\\graphql && copy src\\graphql\\schema.graphql dist\\graphql\" \"nodemon dist\\server.js\"",
+        "run": "nodemon dist/server.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start-dev": "nodemon dist/server.js"
     },
