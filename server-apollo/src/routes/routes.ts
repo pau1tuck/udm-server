@@ -2,8 +2,9 @@ import { Router, Request, Response } from "express";
 
 const routes: Router = Router();
 
-routes.get("/", (req: Request, res: Response) => {
-    res.send("Hello, World!");
+// Set up the "/" route to render the index.ejs file:
+routes.get("/", (_req: Request, res: Response) => {
+    res.render("index");
 });
 
 export default routes;

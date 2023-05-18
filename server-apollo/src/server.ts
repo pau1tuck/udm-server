@@ -71,12 +71,12 @@ const server = async () => {
     app.set("view engine", "ejs");
     app.set("views", path.join(__dirname, "views"));
 
+    // Create an Express session to store user session data:
+    app.use(session(sessionConfig));
+
     // Configure Passport.js middleware
     app.use(passport.initialize());
     app.use(passport.session());
-
-    // Create an Express session to store user session data:
-    app.use(session(sessionConfig));
 
     // Initialize Apollo Server:
     const apolloServer = new ApolloServer<TContext>({
@@ -91,7 +91,7 @@ const server = async () => {
 
     // Set up Express middleware with "app.use()":
     app.use(
-        "/",
+        "/graphql",
         // Middleware function that enables Cross-Origin Resource Sharing (CORS) support for "/" route:
         cors<cors.CorsRequest>(),
         // Middleware function that parses incoming request bodies in JSON format:

@@ -15,3 +15,10 @@ Windows:
 `.\scripts\startDocker.bat`
 
 Note: The PostgreSQL database is stored in `./backup.sql`
+
+## Start development server
+
+(sudo) npm install -g typescript nodemon concurrently
+pnpm install
+chmod +x ./scripts/startDev.sh
+./scripts/startDev.sh
