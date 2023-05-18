@@ -18,6 +18,7 @@ const dataSource = new DataSource({
     entities: [User, Track],
     migrations: [],
     subscribers: [],
+    ssl: true,
 });
 
 export default dataSource;

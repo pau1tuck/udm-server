@@ -26,6 +26,16 @@ type TContext = {
 };
 
 const server = async () => {
+    // Connect to Redis database
+    redisClient.on("connect", () => {
+        console.log("Connected to Redis database.");
+    });
+
+    // Handle Redis connection errors
+    redisClient.on("error", (error) => {
+        console.error("Redis database connection error:", error);
+    });
+
     // Initialize TypeOrm if database configuration exists:
     if (env.DB_NAME) {
         dataSource
