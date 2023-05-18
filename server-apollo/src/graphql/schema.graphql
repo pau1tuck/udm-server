@@ -1,77 +1,55 @@
-# @/graphql/schema.graphql
 type Track {
-    id: ID!
-    trackId: String!
-    artist: String!
-    title: String!
-    version: String
-    label: String!
-    month: Int!
-    year: Int!
-    buyUrl: String
-    votes: Int!
-    createdAt: String!
-    updatedAt: String!
+  id: ID!
+  trackId: String!
+  artist: String!
+  title: String!
+  version: String
+  label: String!
+  month: Int!
+  year: Int!
+  buyUrl: String
+  votes: Int!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Query {
-    tracks: [Track!]!
-    users: [User!]!
+  tracks: [Track!]!
+  readUser(id: String!): User!
+  listUsers(id: String!): [User!]!
 }
 
 type Mutation {
-    createTrack(
-        artist: String!
-        title: String!
-        version: String
-        label: String!
-        month: Int!
-        year: Int!
-        buyUrl: String
-    ): Track!
-    createUser(
-        givenName: String!
-        familyName: String!
-        city: String
-        country: String
-        email: String!
-        password: String!
-    ): User!
-    createStaff(
-        givenName: String!
-        familyName: String!
-        email: String!
-        password: String!
-        verified: Boolean!
-        roles: [Role!]!
-    ): User!
-}
-
-enum Role {
-    GUEST
-    MEMBER
-    STAFF
-    SUPERUSER
+  createTrack(artist: String!, title: String!, version: String, label: String!, month: Int!, year: Int!, buyUrl: String): Track!
+  createUser(givenName: String!, familyName: String!, city: String, country: String, email: String!, password: String!): User!
+  createStaff(givenName: String!, familyName: String!, email: String!, password: String!, verified: Boolean!, roles: [String!]!): User!
+  updateUser(givenName: String, familyName: String, email: String, password: String, verified: Boolean, roles: [String]): User!
+  deleteUser(id: String): DeletedUser!
 }
 
 type User {
-    id: ID!
-    facebookId: String
-    googleId: String
-    twitterId: String
-    givenName: String!
-    familyName: String!
-    city: String
-    country: String
-    email: String!
-    password: String!
-    verified: Boolean!
-    roles: [Role]!
-    createdAt: String!
-    updatedAt: String!
+  id: ID!
+  facebookId: String
+  googleId: String
+  twitterId: String
+  givenName: String!
+  familyName: String!
+  city: String
+  country: String
+  email: String!
+  password: String!
+  verified: Boolean!
+  roles: [String]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type DeletedUser {
+  User: User!
+  note: String!
 }
 
 schema {
-    query: Query
-    mutation: Mutation
+  query: Query
+  mutation: Mutation
 }

@@ -1,10 +1,4 @@
 # @/graphql/user.graphql
-enum Role {
-    MEMBER
-    STAFF
-    SUPERUSER
-}
-
 type User {
     id: ID!
     facebookId: String
@@ -17,13 +11,19 @@ type User {
     email: String!
     password: String!
     verified: Boolean!
-    roles: [Role]!
+    roles: [String]!
     createdAt: String!
     updatedAt: String!
 }
 
+type DeletedUser {
+    User: User!
+    note: String!
+}
+
 type Query {
-    users: [User!]!
+    readUser(id: String!): User!
+    listUsers(id: String!): [User!]!
 }
 
 type Mutation {
@@ -35,7 +35,21 @@ type Mutation {
         email: String!
         password: String!
     ): User!
-    createStaff(email: String!, password: String!, isSuperUser: Boolean!): User!
-    readUser(id: ID!): User!
-    updateUser(id: ID!): User!
+    createStaff(
+        givenName: String!
+        familyName: String!
+        email: String!
+        password: String!
+        verified: Boolean!
+        roles: [String!]!
+    ): User!
+    updateUser(
+        givenName: String
+        familyName: String
+        email: String
+        password: String
+        verified: Boolean
+        roles: [String]
+    ): User!
+    deleteUser(id: String): DeletedUser!
 }
