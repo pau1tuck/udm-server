@@ -2,8 +2,8 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import env from "./env.config";
-import User from "../entity/user.entity";
-import Track from "../entity/track.entity";
+import User from "../entities/user.entity";
+import Track from "../entities/track.entity";
 
 const dataSource = new DataSource({
     type: "postgres",

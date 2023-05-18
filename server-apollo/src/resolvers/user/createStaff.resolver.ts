@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { IResolvers } from "@graphql-tools/utils";
-import User from "../../entity/user.entity";
+import User from "../../entities/user.entity";
 import { isSuperUser } from "../../utils/check-permissions";
 
 const createStaffResolver: IResolvers = {

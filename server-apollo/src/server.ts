@@ -5,6 +5,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import express, { Application, Request, Response } from "express";
 import session from "express-session";
+import exphbs from "express-handlebars";
 import passport from "passport";
 import http from "http";
 import cors from "cors";
@@ -17,8 +18,8 @@ import "./config/passport/local.passport";
 import { redisClient } from "./config/redis.config";
 import pm2Config from "./config/pm2.config";
 import typeDefs from "./graphql/typeDefs";
-import resolvers from "./resolver/resolvers";
-import routes from "./router/routes";
+import resolvers from "./resolvers/resolvers";
+import routes from "./routes/routes";
 
 type TContext = {
     token?: string;

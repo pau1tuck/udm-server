@@ -1,5 +1,5 @@
 import { IResolvers } from "@graphql-tools/utils";
-import User from "../../entity/user.entity";
+import User from "../../entities/user.entity";
 
 const updateUserResolver: IResolvers = {
     Mutation: {
