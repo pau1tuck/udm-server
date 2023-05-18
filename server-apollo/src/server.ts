@@ -1,5 +1,6 @@
 // @/server.ts
 import "reflect-metadata";
+import path from "path";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -12,7 +13,6 @@ import bodyParser from "body-parser";
 import pm2 from "pm2";
 import env from "./config/env.config";
 import dataSource from "./config/database.config";
-import handlebars from "./config/handlebars.config";
 import sessionConfig from "./config/session.config";
 import "./config/passport/local.passport";
 import { redisClient } from "./config/redis.config";
@@ -53,9 +53,9 @@ const server = async () => {
         })
     );
 
-    // Set the handlebars engine as the view engine for Express
-    app.engine("hbs", handlebars.engine);
-    app.set("view engine", "hbs");
+    // Set the view engine to ejs:
+    app.set("view engine", "ejs");
+    app.set("views", path.join(__dirname, "views"));
 
     // Configure Passport.js middleware
     app.use(passport.initialize());
