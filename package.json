@@ -1,5 +1,0 @@
-{
-	"dependencies": {
-		"@graphql-tools/load-files": "^6.6.1"
-	}
-}

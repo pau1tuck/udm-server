@@ -13,6 +13,7 @@ import bodyParser from "body-parser";
 import pm2 from "pm2";
 import env from "./config/env.config";
 import dataSource from "./config/database.config";
+import handlebars from "./config/handlebars.config";
 import sessionConfig from "./config/session.config";
 import "./config/passport/local.passport";
 import { redisClient } from "./config/redis.config";
@@ -52,6 +53,10 @@ const server = async () => {
             credentials: true,
         })
     );
+
+    // Set the handlebars engine as the view engine for Express
+    app.engine("hbs", handlebars.engine);
+    app.set("view engine", "hbs");
 
     // Configure Passport.js middleware
     app.use(passport.initialize());
