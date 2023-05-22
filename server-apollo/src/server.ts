@@ -16,7 +16,7 @@ import dataSource from "./config/database.config";
 import sessionConfig from "./config/session.config";
 import "./config/passport/local.passport";
 import { redisClient } from "./config/redis.config";
-import pm2Config from "./config/pm2.config";
+import pm2Config from "@/config/pm2.config";
 import typeDefs from "./graphql/typeDefs";
 import resolvers from "./resolvers/resolvers";
 import routes from "./routes/routes";
