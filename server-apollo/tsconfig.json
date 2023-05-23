@@ -38,16 +38,17 @@
             "@/*": [
                 "./src/*"
             ]
-        },
-        "include": [
-            "src/**/*.ts",
-            "src/**/*.js", // Include JavaScript files
-            "src/graphql/*.graphql",
-        ],
-        "exclude": [
-            "apollo.config.js",
-            "env.d.ts",
-            "node_modules/",
-            "scripts/"
-        ]
-    }
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.js",
+        "src/graphql/*.graphql"
+    ],
+    "exclude": [
+        "apollo.config.js",
+        "env.d.ts",
+        "node_modules/",
+        "scripts/"
+    ]
+}
