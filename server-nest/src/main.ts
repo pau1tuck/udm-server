@@ -7,7 +7,7 @@ async function bootstrap() {
 
     const config = app.get(ConfigService);
 
-    const HOST = config.get<string>("HOST");
+    const HOST = config.get<string>("HOST") || "localhost";
     const PORT = config.get<number>("PORT") || 3000;
 
     await app.listen(PORT);
