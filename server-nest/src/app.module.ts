@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 // ConfigModule exposes a ConfigService to load the dotenv file:
-import { AppController } from "@/app.controller";
-import { AppService } from "@/app.service";
-import database from "@/config/database.config";
-import http from "@/config/http.config";
 import { ConfigModule } from "@nestjs/config";
+import { AppController } from "~/app.controller";
+import { AppService } from "~/app.service";
+import database from "~/config/database.config";
+import http from "~/config/http.config";
 
 @Module({
     imports: [

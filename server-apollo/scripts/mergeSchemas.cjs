@@ -7,8 +7,8 @@ const { print } = require("graphql");
 // Define the schema files directory based on the operating system
 const schemaFilesDir =
     process.platform === "win32"
-        ? join(__dirname, "..\\src\\graphql\\*.graphql") // Windows
-        : join(__dirname, "../src/graphql/*.graphql"); // Mac/Linux
+        ? join(__dirname, "..\\src\\graphql\\**\\*.graphql") // Windows
+        : join(__dirname, "../src/graphql/**/*.graphql"); // Mac/Linux
 
 const loadedFiles = loadFilesSync(schemaFilesDir);
 const mergedSchema = mergeTypeDefs(loadedFiles);

@@ -1,3 +1,3 @@
 module.exports = {
-    service: { name: "udm-server-apollio", localSchemaFile: "./src/graphql/schema.graphql" },
+    service: { name: "udm-server-apollo", localSchemaFile: "src/graphql/schema.graphql" },
 };
