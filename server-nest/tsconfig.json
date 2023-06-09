@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es2017",
         "outDir": "./dist",
-        "baseUrl": "/Users/pau1tuck/dev/udm-server/server-nest",
+        "baseUrl": ".",
         "paths": {
             "@/*": [
                 "./src/*"
