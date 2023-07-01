@@ -1,7 +1,7 @@
 import { IResolvers } from "@graphql-tools/utils";
-import User from "../../entities/user.entity";
+import User from "@/entities/user.entity";
 
-const readUserResolver: IResolvers = {
+const readSelfResolver: IResolvers = {
     Mutation: {
         readUser: async (_, { id }) => {
             try {
@@ -19,4 +19,4 @@ const readUserResolver: IResolvers = {
     },
 };
 
-export default readUserResolver;
+export default readSelfResolver;
